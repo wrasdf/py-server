@@ -1,0 +1,13 @@
+FROM python:alpine3.7
+WORKDIR /app
+
+RUN apk --update add gcc make bash jq curl && \
+  rm -rf /tmp/* /var/cache/apk/*
+
+COPY requirements.txt /app
+RUN pip install -r /app/requirements.txt
+
+EXPOSE 8080
+
+# COPY . /app
+CMD python ./app/run.py
