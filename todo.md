@@ -1,0 +1,7 @@
+- docker-compose with app and postgresDB
+- view with Flask
+- create DB & migration script
+- create schema for user
+- app connect with DB
+- User auth login with Google
+- UI with bootstrap
