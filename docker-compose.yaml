@@ -1,0 +1,59 @@
+version: '2.3'
+services:
+
+  app:
+    build:
+      context: .
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-net
+    volumes:
+      - .:/app
+    command: ["python", "app/run.py"]
+
+  redis:
+    image: redis:4.0-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-net
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  postgres:
+    image: postgres:9.6.2-alpine
+    user: postgresql
+    ports:
+      - "5432:5432"
+    networks:
+      - app-net
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+      - ./migration:/migration
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    environment:
+      - POSTGRES_USER:'postgresql'
+      - POSTGRES_PASSWORD:'password1'
+      - POSTGRES_DB:'users'
+
+networks:
+  app-net:

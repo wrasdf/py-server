@@ -1,7 +1,14 @@
-- docker-compose with app and postgresDB
-- view with Flask
+- docker-compose with app and postgresDB (90%)
+- Python with Redis connection
+- Python witd DB connection
+
 - create DB & migration script
 - create schema for user
-- app connect with DB
+
+- view (templates) in Flask
 - User auth login with Google
-- UI with bootstrap
+
+- Testing
+- Deploy (ECS | Kubernetes)
+
+- RDS & Redis Spike
