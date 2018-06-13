@@ -1,5 +1,12 @@
 Flask==1.0.2
 Flask-RESTful==0.3.6
-flask-jwt-extended
-passlib
-flask-sqlalchemy
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-Script
+alembic
+SQLAlchemy
+flasgger
+requests
+flask-marshmallow
+psycopg2
+Werkzeug

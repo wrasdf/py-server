@@ -1,0 +1,2 @@
+ALTER USER postgres WITH SUPERUSER;
+CREATE DATABASE pyserver OWNER postgres;

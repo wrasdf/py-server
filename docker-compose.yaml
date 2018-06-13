@@ -16,7 +16,7 @@ services:
       - app-net
     volumes:
       - .:/app
-    command: ["python", "app/run.py"]
+    command: ["python", "app/app.py"]
 
   redis:
     image: redis:4.0-alpine
@@ -42,7 +42,7 @@ services:
       - app-net
     volumes:
       - ./data/pg:/var/lib/postgresql/data
-      - ./migration:/docker-entrypoint-initdb.d/
+      - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 30s
