@@ -1,14 +1,12 @@
-- docker-compose with app and postgresDB (90%)
-- Python with Redis connection
-- Python witd DB connection
+- docker-compose with app, redis, postgresDB, pgweb, redis-commander Done
+- create DB & migration script done
+- create schema for users done
 
-- create DB & migration script
-- create schema for user
+- Python with Redis connection
+- Python with DB connection
 
 - view (templates) in Flask
 - User auth login with Google
 
 - Testing
 - Deploy (ECS | Kubernetes)
-
-- RDS & Redis Spike

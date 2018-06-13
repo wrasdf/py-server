@@ -1,5 +1,5 @@
-CREATE ROLE postgresql superuser;
-CREATE DATABASE pyserver OWNER postgresql;
+ALTER USER postgres WITH SUPERUSER;
+CREATE DATABASE pyserver OWNER postgres;
 CREATE TABLE IF NOT EXISTS users (
   id serial PRIMARY KEY,
   logdate timestamp,

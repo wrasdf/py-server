@@ -36,24 +36,49 @@ services:
 
   postgres:
     image: postgres:9.6.2-alpine
-    user: postgresql
     ports:
       - "5432:5432"
     networks:
       - app-net
     volumes:
       - ./data/pg:/var/lib/postgresql/data
-      - ./migration:/migration
+      - ./migration:/docker-entrypoint-initdb.d/
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     environment:
-      - POSTGRES_USER:'postgresql'
-      - POSTGRES_PASSWORD:'password1'
-      - POSTGRES_DB:'users'
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password1
+      - POSTGRES_DB=users
+      - POSTGRES_PORT=5432
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    restart: always
+    networks:
+      - app-net
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - 8082:8081
+
+  pgweb:
+    image: sosedoff/pgweb:0.9.12
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - app-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["/usr/bin/pgweb", "--bind=0.0.0.0", "--listen=8081", "--url=postgres://postgres:password1@postgres:5432/users?sslmode=disable"]
 
 networks:
   app-net:
