@@ -8,5 +8,5 @@
 - view (templates) in Flask
 - User auth login with Google
 
-- Testing
+- Testing (1%)
 - Deploy (ECS | Kubernetes)

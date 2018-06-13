@@ -4,15 +4,20 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db
 import resources
 import config
-
+# import routes
 
 app = Flask(__name__)
-
-# app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DB_URI
 db.init_app(app)
-# ModelManager(db)
+
+# for blueprint in vars(routes).values():
+#     if isinstance(blueprint, Blueprint):
+#         server.register_blueprint(
+#             blueprint,
+#             url_prefix=config.APPLICATION_ROOT
+#         )
+#
 
 api = Api(app)
 api.add_resource(resources.UserRegistration, '/registration')

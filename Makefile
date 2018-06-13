@@ -21,9 +21,6 @@ run: build stop
 sh: build
 	docker run -it -v $$(pwd):/app -e A -p 8080:8080 flask:latest /bin/bash
 
-db/connect:
-	docker-compose exec -it app psql -Upostgres
-
 db/downgrade:
 	docker-compose run --rm app python app/manage.py db downgrade
 
