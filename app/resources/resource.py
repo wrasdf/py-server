@@ -37,10 +37,3 @@ class AllUsers(Resource):
 
     def delete(self):
         return {'message': 'Delete all users'}
-
-
-class SecretResource(Resource):
-    def get(self):
-        return {
-            'answer': 42
-        }

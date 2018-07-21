@@ -6,8 +6,8 @@ RUN apk --update add gcc make bash jq curl postgresql-dev musl-dev && \
 
 COPY requirements.txt /app
 RUN pip install -r /app/requirements.txt
-
-EXPOSE 8080
+#
+# EXPOSE 8080
 
 # COPY . /app
 # CMD python ./app/run.py

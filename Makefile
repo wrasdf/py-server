@@ -1,7 +1,4 @@
-.PHONY: build stop up run sh
-
-build:
-	docker build -t flask:latest .
+.PHONY: build stop up
 
 compose-build:
 	docker-compose build app
@@ -15,12 +12,6 @@ stop:
 up: stop compose-build
 	docker-compose up
 
-run: build stop
-	docker run --rm -d -v $$(pwd):/app -p 8080:8080 flask:latest
-
-sh: build
-	docker run -it -v $$(pwd):/app -e A -p 8080:8080 flask:latest /bin/bash
-
 db/downgrade:
 	docker-compose run --rm app python app/manage.py db downgrade
 
@@ -29,3 +20,9 @@ db/upgrade:
 
 db/migrate:
 	docker-compose run --rm app python app/manage.py db migrate
+
+build:
+	docker build -t te .
+
+sh: build
+	docker run --rm -it -v $$(pwd):/app te /bin/bash
